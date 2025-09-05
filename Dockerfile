@@ -1,8 +1,9 @@
-# CUDA 개발 이미지 사용 (runtime 대신)
-FROM nvidia/cuda:12.1.1-devel-ubuntu22.04
+# RunPod PyTorch 이미지 사용 (더 안정적)
+FROM runpod/pytorch:2.1.0-py3.10-cuda11.8.0-devel-ubuntu22.04
 
-# 기본 환경 준비
-RUN apt-get update && apt-get install -y \
+# 기본 환경 준비 (미러 서버 변경)
+RUN sed -i 's/archive.ubuntu.com/mirror.kakao.com/g' /etc/apt/sources.list && \
+    apt-get update && apt-get install -y \
     git python3 python3-pip python3-dev \
     cmake build-essential ninja-build \
     libopenblas-dev pkg-config \
