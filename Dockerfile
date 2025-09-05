@@ -14,8 +14,8 @@ WORKDIR /app
 # 핸들러 복사
 COPY handler.py .
 
-# 환경변수 설정 (CUDA 지원 - GGML_CUDA 사용)
-ENV CMAKE_ARGS="-DGGML_CUDA=on -DCMAKE_CUDA_ARCHITECTURES=all"
+# 환경변수 설정 (CUDA 지원 - 구체적인 아키텍처 지정)
+ENV CMAKE_ARGS="-DGGML_CUDA=on -DCMAKE_CUDA_ARCHITECTURES=75;80;86;89;90"
 ENV FORCE_CMAKE=1
 ENV CUDA_DOCKER_ARCH=all
 ENV GGML_CUDA=1
@@ -28,8 +28,8 @@ ENV HF_TOKEN=$HF_TOKEN
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir runpod huggingface_hub
 
-# llama-cpp-python을 소스에서 빌드 (GGML_CUDA 사용)
-RUN CMAKE_ARGS="-DGGML_CUDA=on -DCMAKE_CUDA_ARCHITECTURES=all" \
+# llama-cpp-python을 소스에서 빌드 (구체적인 CUDA 아키텍처)
+RUN CMAKE_ARGS="-DGGML_CUDA=on -DCMAKE_CUDA_ARCHITECTURES=75;80;86;89;90" \
     FORCE_CMAKE=1 \
     pip install --no-cache-dir llama-cpp-python --no-binary llama-cpp-python --verbose
 
