@@ -28,11 +28,12 @@ RUN pip install --no-cache-dir runpod huggingface_hub
 # llama-cpp-python 설치 (CPU 버전으로 빠르게)
 RUN pip install --no-cache-dir llama-cpp-python
 
-# Hugging Face에서 GGUF 모델 다운로드 (빌드 시 포함)
+# Hugging Face에서 GGUF 모델 다운로드 (토큰 사용)
 RUN mkdir -p /models && \
     huggingface-cli download mykor/Midm-2.0-Base-Instruct-gguf \
     Midm-2.0-Base-Instruct-Q5_K_M.gguf \
-    --local-dir /models
+    --local-dir /models \
+    --token $HF_TOKEN
 
 ENV MODEL_PATH=/models/Midm-2.0-Base-Instruct-Q5_K_M.gguf
 
